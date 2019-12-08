@@ -1,0 +1,23 @@
+{
+
+  "name": "MuzzleBot",
+
+  "description": "MuzzleBot",
+
+  "version": "0.0.0",
+
+  "main": "muzzle.py",
+
+  "scripts": {
+
+    "start": "python muzzle.py"
+
+  },
+
+  "dependencies": {
+
+    "discord": "11.1.0"
+
+  }
+
+}
