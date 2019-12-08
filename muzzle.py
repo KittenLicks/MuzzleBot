@@ -2,7 +2,11 @@ import discord
 import random
 import re
 
+print("This is a test")
+
 TOKEN = process.env.BOT_TOKEN
+
+print(TOKEN)
 
 client = discord.Client()
 
