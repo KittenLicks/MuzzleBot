@@ -1,12 +1,9 @@
 import discord
+import os
 import random
 import re
 
-print("This is a test")
-
-TOKEN = process.env.BOT_TOKEN
-
-print(TOKEN)
+TOKEN = os.environ['BOT_TOKEN']
 
 client = discord.Client()
 
@@ -302,7 +299,7 @@ async def muzzlemain(message):
 			await sendBumpMessage(user,message.channel)
 		return
 
-	allowed_channels = ['blush-chat','blush-chat-2','extreme-blush-chat','bot', 'rp-chat']
+	allowed_channels = ['blush-chat','blush-chat-2','blush-chat-3','extreme-blush-chat','extreme-blush-chat-2','bot', 'rp-chat']
 
 	channel = message.channel
 	author = message.author
