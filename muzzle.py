@@ -5,7 +5,9 @@ import re
 
 TOKEN = os.environ['BOT_TOKEN']
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 
 muzzled = {}
 
