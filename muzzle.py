@@ -437,10 +437,10 @@ async def on_message(message):
 	await muzzlemain(message)
 
 def pronoun(user,t):	
-	if hasRole(user,'Male') or hasRole(user,'FtM'):
+	if hasRole(user,'He/Him'):
 		p =	{'he':'he','he is':'he is','his':'his','him':'him'}
 		return p[t]
-	elif hasRole(user,'Female') or hasRole(user,'MtF'):
+	elif hasRole(user,'She/Her'):
 		p = {'he':'she','he is':'she is','his':'her','him':'her'}
 		return p[t]
 	else:
