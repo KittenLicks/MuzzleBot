@@ -335,10 +335,13 @@ async def muzzlemain(message):
 				cnt = message.content
 				await message.delete()				
 				await speak(author.mention + ' ' +flavor('talk',author,flav), channel)				
-	elif message.content.startswith("!release"):
-		arg = message.content[9:]		
+	elif message.content.startswith("!release") or message.content.startswith("!unmuzzle"):
+		command = message.content.split(' ')[0]
+		arg = message.content[len(command)+1:]
 		args = arg.split(' ')
-		if hasRole(author,'Sub'):
+		if hasRole(author, 'Privileges Revoked'):
+			await speak('Sorry, '+message.author.mention + '. You\'ve had muzzling privileges revoked.', channel)
+		elif hasRole(author,'Sub'):
 			if not str(channel) in allowed_channels:
 				await deny_emoji(message)
 			else:
@@ -381,61 +384,64 @@ async def muzzlemain(message):
 				if not str(channel) in allowed_channels:
 					await deny_emoji(message)
 				else:
-					#Fix any accidental doublespacing in the command.
-					message.content = re.sub(r'\s+',' ',message.content)
-					arg = message.content[len(command)+2:]					
-					
-					args = arg.split(' ')
-					if hasRole(author,'Sub'):
-						await speak(flavor('subtry',message.author,command), channel)
-					elif hasRole(author,'Dom') or hasRole(author,'Switch'):
-						if len(arg) == 0:
-							await speak('You need to choose a target for this command!', channel)
-						else:
-							first = args[0]
-							members = channel.members
-							user = getUser(first,members)
-							if user != False:
-								if hasRole(user,'Dom'):
-									await speak("You can't use this command on a Dom!", channel)
-								else:
-									allowed = args[1:]					
-									if len(allowed) == 0:
-										#Use defaults
-										allowed = flavor_defaults[command]									
-										allowed_list = flavor_defaults[command]
-										#Muzzle the user!
-										muzzled[user.mention] = {
-											'allowed':allowed,
-											'flavor':command
-										}
+					if hasRole(author, 'Privileges Revoked'):
+						await speak('Sorry, '+message.author.mention + '. You\'ve had muzzling privileges revoked.', channel)
+					else:
+						#Fix any accidental doublespacing in the command.
+						message.content = re.sub(r'\s+',' ',message.content)
+						arg = message.content[len(command)+2:]					
+						
+						args = arg.split(' ')
+						if hasRole(author,'Sub'):
+							await speak(flavor('subtry',message.author,command), channel)
+						elif hasRole(author,'Dom') or hasRole(author,'Switch'):
+							if len(arg) == 0:
+								await speak('You need to choose a target for this command!', channel)
+							else:
+								first = args[0]
+								members = channel.members
+								user = getUser(first,members)
+								if user != False:
+									if hasRole(user,'Dom'):
+										await speak("You can't use this command on a Dom!", channel)
 									else:
-										#Check for the simple list
-										if '**simple**' in allowed:
-											muzzled[user.mention] = {
-												'allowed':simple_text,
-												'flavor':command
-											}
-											allowed_list = ["Please see !simpletext for a complete list."]
-										else:
-											allowed = ' '.join(allowed)
-											allowed = re.sub(escape_regex,'',allowed)
-											allowed = allowed.lower().split('/')
-											
-											allowed_list = ' '.join(args[1:])
-											allowed_list = allowed_list.split('/')
+										allowed = args[1:]					
+										if len(allowed) == 0:
+											#Use defaults
+											allowed = flavor_defaults[command]									
+											allowed_list = flavor_defaults[command]
 											#Muzzle the user!
 											muzzled[user.mention] = {
 												'allowed':allowed,
 												'flavor':command
 											}
+										else:
+											#Check for the simple list
+											if '**simple**' in allowed:
+												muzzled[user.mention] = {
+													'allowed':simple_text,
+													'flavor':command
+												}
+												allowed_list = ["Please see !simpletext for a complete list."]
+											else:
+												allowed = ' '.join(allowed)
+												allowed = re.sub(escape_regex,'',allowed)
+												allowed = allowed.lower().split('/')
+												
+												allowed_list = ' '.join(args[1:])
+												allowed_list = allowed_list.split('/')
+												#Muzzle the user!
+												muzzled[user.mention] = {
+													'allowed':allowed,
+													'flavor':command
+												}
 
-									await speak(user.mention + ' ' + flavor('start',user,command), channel)
-									await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
-							else:
-								await speak("Could not find user: "+first, channel)
-					else:
-						await speak('You need a Switch or Dom role to use this command.', channel)
+										await speak(user.mention + ' ' + flavor('start',user,command), channel)
+										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
+								else:
+									await speak("Could not find user: "+first, channel)
+						else:
+							await speak('You need a Switch or Dom role to use this command.', channel)
 
 @client.event
 async def on_message_edit(before,after):
