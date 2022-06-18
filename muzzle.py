@@ -11,6 +11,25 @@ client = discord.Client(intents=intents)
 
 muzzled = {}
 
+swears = [
+	r"\ba+ss+(?:hole)?\b",
+	r"\ba+ss+e+s\b",
+	r"\ba+r+s+e+s?(?:hole)?\b",
+	"b+i+t+c+h+",
+	"damn",
+	"f+u+ck+",
+	"^hell|[^s]h+el+l",
+	"s+h+i+t+",
+	"w+h+o+r+e",
+	"c+u+n+t+",
+
+	"p+i+s+s",
+	"wtf+",
+	"gdi+",
+	"lmfa+o+"
+]
+#cunt, whore
+
 channel = ''
 emojis = '😀😃🙂🙃😊😇☺😋😛😜🤭🤐😐😑😶😏😳😨😭😖😣😤😡😈❤😠🤤💖❤🧡💛💚💙💜🤎🖤🤍♥💘💝💗'
 stop_sign = '🛑'
@@ -100,7 +119,7 @@ async def sendBumpMessage(user, channel):
 			"@ is such a good little plush!",
 			"If anyone needs a plush to cuddle tonight, @ is available!"
 		],
-		"Spanking":[
+		"Impact Play":[
 			"Over my lap, @, it's time for your maintenance spanking.",
 			"Get over my lap right this instant, @! You're about to have a very sore bottom.",
 			"Bring me my paddle, @, I think it's time we turned that butt a nice red, don't you?"
@@ -123,8 +142,6 @@ async def sendBumpMessage(user, channel):
 
 	random.shuffle(roles)
 
-	print(roles)
-
 	s = ''
 
 	for role in roles:
@@ -141,7 +158,7 @@ async def sendBumpMessage(user, channel):
 		s = "Hey everyone, @ li- oh, gosh, it's you, I'm so sorry, have a nice day, Miss. 😱"		
 
 	s = s.replace('@',user.mention)
-
+	
 	split = s.split('|')
 	if len(split) > 1:
 		msg = split[0]
@@ -157,9 +174,30 @@ async def sendBumpMessage(user, channel):
 async def deny_emoji(msg):
 	await msg.add_reaction('🛑')
 
+async def soap_emoji(msg):
+	await msg.add_reaction('🧼')
+
+def check_swear(txt):
+	for swear in swears:
+		if not re.search(swear, txt) == None:
+			return True
+	return False
+
 def flavor(t,user,f):
 	print('flavor',t,user,f)
 	flavs = {
+		'swearing':{
+			'swear':[
+				"Mind your manners, @."
+				"Language, @!",
+				"I heard that, @. If you can't watch your mouth, I'll watch it for you.",
+				"Be careful, @. There's a bar of soap with your name on it.",
+				"Bad @! You do *not* use that word.",
+				"That's not appropriate language for you, @.",
+				"Now now, @. Good subbies don't use that kind of language.",
+				"Keep up that language and we may have to muzzle you, @."
+			]
+		},
 		'muzzle':{
 			'start':[
 				'has been muzzled! Behave yourself.',
@@ -276,13 +314,13 @@ def flavor(t,user,f):
 			'subtry':"Sorry, subby, if you want to be hypnotized you'll have to ask a Switch or Dom to do it for you."
 		}
 	}
-	flav = flavs[f]
+	flav = flavs[f]	
 	if t == "subtry":
 		s = flav[t]
 	else:
 		s = random.choice(flav[t])
+	s=s.replace('@',user.mention)
 	return replacePronouns(s,user)
-
 
 async def muzzlemain(message):
 	global muzzled
@@ -291,23 +329,35 @@ async def muzzlemain(message):
 		return
 
 	if str(message.author) == 'DISBOARD#2760':
-		
 		if len(message.embeds) == 1:
-			embed = message.embeds[0]	
-			text = embed.description
-			
-			text = text.split(', ')
-			user = text[0]
+			print(message.embeds)
+			if 'Bump done!' in message.embeds[0].title:
+				print("Text found!")
+				replied_to = message.reference
+				message_id = replied_to.message_id
+				msg = await message.channel.fetch_message(message_id)
+				user = msg.author.mention
 
-			user = getUser(user, message.channel.members)
-
-			await sendBumpMessage(user,message.channel)
+				user = getUser(user, message.channel.members)
+				print(msg)
+				print(user)
+				#await sendBumpMessage(user,message.channel)
 		return
 
-	allowed_channels = ['blush-chat','blush-chat-2','blush-chat-3','extreme-blush-chat','extreme-blush-chat-2','bot', 'rp-chat']
+	allowed_channels = ['blush-chat','blush-chat-2','blush-chat-3','extreme-blush-chat','extreme-blush-chat-2','bot', 'rp-chat']	
 
 	channel = message.channel
 	author = message.author
+
+	#Check for swearing
+	if hasRole(author,'Innocent'):	
+		msg = message.content.lower()		
+		if check_swear(msg):
+			#They SWORE. O: Naughty.
+			await soap_emoji(message)
+			if str(channel) in allowed_channels:		
+				await speak(flavor('swear',author,'swearing'),channel)
+
 	if message.content == "!simpletext":
 		await author.send("Here is a list of all the words you can say when restricted to simple language.\n>>> " + '\n'.join(simple_text))
 		await speak('List sent to '+author.mention+'.',channel)
