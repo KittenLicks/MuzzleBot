@@ -350,7 +350,7 @@ async def muzzlemain(message):
 	author = message.author
 
 	#Check for swearing
-	if hasRole(author,'Innocent'):	
+	if hasRole(author,'Soap Bar'):	
 		msg = message.content.lower()		
 		if check_swear(msg):
 			#They SWORE. O: Naughty.
