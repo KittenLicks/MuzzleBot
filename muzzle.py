@@ -10,6 +10,7 @@ intents.members = True
 client = discord.Client(intents=intents)
 
 muzzled = {}
+muzzlers = {}
 
 swears = [
 	r"\ba+ss+(?:hole)?\b",
@@ -22,13 +23,11 @@ swears = [
 	"s+h+i+t+",
 	"w+h+o+r+e",
 	"c+u+n+t+",
-
 	"p+i+s+s",
 	"wtf+",
 	"gdi+",
 	"lmfa+o+"
 ]
-#cunt, whore
 
 channel = ''
 emojis = '😀😃🙂🙃😊😇☺😋😛😜🤭🤐😐😑😶😏😳😨😭😖😣😤😡😈❤😠🤤💖❤🧡💛💚💙💜🤎🖤🤍♥💘💝💗'
@@ -188,7 +187,7 @@ def flavor(t,user,f):
 	flavs = {
 		'swearing':{
 			'swear':[
-				"Mind your manners, @."
+				"Mind your manners, @.",
 				"Language, @!",
 				"I heard that, @. If you can't watch your mouth, I'll watch it for you.",
 				"Be careful, @. There's a bar of soap with your name on it.",
@@ -314,7 +313,7 @@ def flavor(t,user,f):
 			'subtry':"Sorry, subby, if you want to be hypnotized you'll have to ask a Switch or Dom to do it for you."
 		}
 	}
-	flav = flavs[f]	
+	flav = flavs[f]
 	if t == "subtry":
 		s = flav[t]
 	else:
@@ -322,10 +321,21 @@ def flavor(t,user,f):
 	s=s.replace('@',user.mention)
 	return replacePronouns(s,user)
 
+async def release(user,channel,muzzler):
+	global muzzlers
+	print(muzzlers)
+	await speak(user.mention + ' ' + flavor('end',user,muzzled[user.mention]['flavor']), channel)
+	del muzzled[user.mention]
+	muzzlers[muzzler].remove(user.mention)
+	if len(muzzlers[muzzler]) == 0:	
+		del muzzlers[muzzler]
+	print(muzzlers)
+
 async def muzzlemain(message):
 	global muzzled
+	global muzzlers
 
-	if message.author == client.user:
+	if message.author == client.user or message.author.bot:
 		return
 
 	if str(message.author) == 'DISBOARD#2760':
@@ -350,7 +360,7 @@ async def muzzlemain(message):
 	author = message.author
 
 	#Check for swearing
-	if hasRole(author,'Soap Bar'):	
+	if hasRole(author,'Soap Bar'):		
 		msg = message.content.lower()		
 		if check_swear(msg):
 			#They SWORE. O: Naughty.
@@ -397,19 +407,26 @@ async def muzzlemain(message):
 			else:
 				await speak("Nope. Be a good subby and leave that to the Doms and Switches.", channel)
 		elif hasRole(author,'Dom') or hasRole(author,'Switch'):
-			if len(arg) == 0:
-				await speak('You need to choose a user to unmuzzle!', channel)
+			if len(arg) == 0:				
+				# Check if anyone is muzzled under this user's name.
+				if author.mention in muzzlers:
+					muzzled_persons = muzzlers[author.mention]
+					last_muzzled = muzzlers[author.mention][len(muzzled_persons)-1]
+					await release(getUser(last_muzzled,channel.members),channel, author.mention)
+				else:
+					#Nope. We don't know who they mean.
+					await speak('You need to choose a user to unmuzzle!', channel)
 			elif args[0] == "all":
 				await speak("Releasing all muzzled users.",channel)
 				muzzled = {}
+				muzzlers = {}
 			else:
 				first = args[0]
 				members = channel.members				
 				user = getUser(first,members)
 				if user != False:
 					if user.mention in muzzled:
-						await speak(user.mention + ' ' + flavor('end',user,muzzled[user.mention]['flavor']), channel)
-						del muzzled[user.mention]
+						await release(user,channel,author.mention)
 					else:
 						await speak("That person isn't restricted!", channel)
 				else:
@@ -465,6 +482,11 @@ async def muzzlemain(message):
 												'allowed':allowed,
 												'flavor':command
 											}
+											#Remember who muzzled them.
+											if author.mention in muzzlers:
+												muzzlers[author.mention].append(user.mention)
+											else:
+												muzzlers[author.mention] = [user.mention]
 										else:
 											#Check for the simple list
 											if '**simple**' in allowed:
