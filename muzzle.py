@@ -188,6 +188,17 @@ def check_swear(txt):
 			return True
 	return False
 
+def remember_muzzle(user, author):
+	global muzzled_by
+	global muzzlers
+
+	muzzled_by[user.mention] = author.mention															
+	if author.mention in muzzlers:												
+		muzzlers[author.mention].append(user.mention)													
+	else:
+		muzzlers[author.mention] = [user.mention]
+
+
 def flavor(t,user,f):
 	print('flavor',t,user,f)
 
@@ -362,13 +373,7 @@ async def muzzlemain(message):
 											muzzled[user.mention] = {
 												'allowed':allowed,
 												'flavor':command
-											}
-											#Remember who muzzled them.
-											muzzled_by[user.mention] = author.mention															
-											if author.mention in muzzlers:												
-												muzzlers[author.mention].append(user.mention)													
-											else:
-												muzzlers[author.mention] = [user.mention]
+											}											
 										else:
 											#Check for the simple list
 											if '**simple**' in allowed:
@@ -389,6 +394,8 @@ async def muzzlemain(message):
 													'allowed':allowed,
 													'flavor':command
 												}
+										#Remember who muzzled them.
+										remember_muzzle(user,author)
 
 										await speak(flavor('start',user,command), channel)
 										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
