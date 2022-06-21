@@ -360,16 +360,16 @@ async def muzzlemain(message):
 									if hasRole(user,'Dom'):
 										await speak("You can't use this command on a Dom!", channel)
 									else:
+										#Muzzle the user!
+										if user.mention in muzzled:
+											#Hotswap, silently unmuzzle first.
+											await release(user,channel,True)
+										
 										allowed = args[1:]					
 										if len(allowed) == 0:
 											#Use defaults
 											allowed = muzzle_flavor_text[command]['defaults']								
 											allowed_list = muzzle_flavor_text[command]['defaults']
-											#Muzzle the user!
-											if user.mention in muzzled:
-												#Hotswap, silently unmuzzle first.
-												await release(user,channel,True)
-											
 											muzzled[user.mention] = {
 												'allowed':allowed,
 												'flavor':command
