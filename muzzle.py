@@ -2,6 +2,7 @@ import discord
 import os
 import random
 import re
+import json
 
 TOKEN = os.environ['BOT_TOKEN']
 
@@ -11,14 +12,17 @@ client = discord.Client(intents=intents)
 
 muzzled = {}
 muzzlers = {}
+muzzled_by = {}
+
+muzzle_flavor_text = json.load(open('flavor.json'))
 
 swears = [
 	r"\ba+ss+(?:hole)?\b",
 	r"\ba+ss+e+s\b",
 	r"\ba+r+s+e+s?(?:hole)?\b",
 	"b+i+t+c+h+",
-	"damn",
-	"f+u+ck+",
+	"da+m+n+",
+	"f+u+c+k+",
 	"^hell|[^s]h+el+l",
 	"s+h+i+t+",
 	"w+h+o+r+e",
@@ -26,7 +30,9 @@ swears = [
 	"p+i+s+s",
 	"wtf+",
 	"gdi+",
-	"lmfa+o+"
+	"lmfa+o+",
+	"fml+",
+	"s+l+u+t+"
 ]
 
 channel = ''
@@ -184,136 +190,8 @@ def check_swear(txt):
 
 def flavor(t,user,f):
 	print('flavor',t,user,f)
-	flavs = {
-		'swearing':{
-			'swear':[
-				"Mind your manners, @.",
-				"Language, @!",
-				"I heard that, @. If you can't watch your mouth, I'll watch it for you.",
-				"Be careful, @. There's a bar of soap with your name on it.",
-				"Bad @! You do *not* use that word.",
-				"That's not appropriate language for you, @.",
-				"Now now, @. Good subbies don't use that kind of language.",
-				"Keep up that language and we may have to muzzle you, @."
-			]
-		},
-		'muzzle':{
-			'start':[
-				'has been muzzled! Behave yourself.',
-				'has been muzzled! Be good.',
-				'has been muzzled! Maybe that\'ll quiet !! down.',
-				'has been muzzled! Was that a complaint? Sorry, can\'t hear you.',
-				'has been muzzled! Where\'s the leash and collar?',
-				'has been muzzled! That\'ll teach !! to behave.'			
-			],
-			'talk':[
-				'had something to say, but nobody could hear it through the muzzle.',
-				'tried to say a disallowed word. Bad pet!',
-				'tried to speak through % muzzle. It thinks it\'s people, cute!'		
-			],
-			'end':[
-				'has had % muzzle removed. I hope you learned a lesson.',
-				'is free from % muzzle now. I\'m keeping my eye on you.',
-				'has been released from % muzzle. Maybe #\'ll behave this time.'
-			],
-			'subtry':"Sorry, subby, if you want to be muzzled you'll have to ask a Switch or Dom to do it for you."
-		},
-		'gag':{
-			'start':[
-				'has been gagged! Hush, dear, the doms are talking.',
-				'has been gagged! We\'ll come up with a use for that mouth in a minute.',
-				'has been gagged! Don\'t make me chain you up too.',
-				'has been gagged! Hard to brat with your mouth full, isn\'t it?',
-				'has been gagged! Look at you drool.',
-				'has been gagged! Slaves should be seen, not heard.'
-			],
-			'talk':[
-				'makes some noises through the gag. Mrph hmf mfff!',
-				'is trying to be sassy, but forgot #is not allowed to right now.',
-				'forgot that % mouth is for pleasing doms, not talking.'
-			],
-			'end':[
-				'has had % gag removed. For now.',
-				'is no longer gagged. Maybe you\'ll think twice next time you mouth off.',
-				'is ungagged. Respect the doms, or it goes right back in.'
-			],
-			'subtry':"Sorry, subby, if you want to be gagged you'll have to ask a Switch or Dom to do it for you."
-		},
-		'pantygag':{
-			'start':[
-				'has been panty-gagged! How do you taste, slut?',
-				'has been panty-gagged! Look at !! choking on % own bottom!',
-				'has been panty-gagged! Get a good whiff.'
-			],
-			'talk':[
-				'tries to talk through % panties. Mrph hmf mfff!',
-				'tried to say something, but only succeeded in getting a good taste of % panties.',
-				'tried to talk, but % smell is making !! lightheaded!'],
-			'end':[
-				'is no longer panty-gagged. But the taste still lingers in % mouth.',
-				'had % panties taken out of % mouth. Say thank you!'
-			],
-			'subtry':"Sorry, subby, if you want to be gagged you'll have to ask a Switch or Dom to do it for you."
-		},
-		'pacify':{
-			'start':[
-				'is now pacified! Act like a baby, get treated like a baby.',
-				'is now pacified! Aww... is the baby cranky?',
-				'is now pacified! Hush, little baby, don\'t say a word...',
-				'is now pacified! Even pretty babies need to know when to hush.'
-			],
-			'talk':[
-				'forgot babies can\'t talk. Wa na de nuh!',
-				'tried to talk. Little baby thinks #is smart! So cute!',
-				'is trying to say something. Don\'t worry, baby, it\'s almost naptime.'
-			],
-			'end':[
-				'is no longer pacified. Are you ready to behave now?',
-				'had % pacifier removed, but is still a pretty baby.' 
-			],
-			'subtry':"Sorry, subby, if you want to be pacified you'll have to ask a Switch or Dom to do it for you."
-		},
-		'plushify':{
-			'start':[
-				'has been turned into a plushy by a magic spell! :sparkles:',
-				'has been plushified! What a pretty little toy!',
-				'suddenly turns into a huggable little plushy!'
-			],
-			'talk':[
-				'squeaks! Did someone squeeze !!?',
-				'squeaks for attention! I think # needs a hug.',
-				'is just a dumb little plush that needs others to tell !! what to say.'
-			],
-			'end':[
-				'turns back to normal, but we all know #is still a plushy at heart.',
-				'has been released from the plushy curse.',
-				'returns to human form! Don\'t worry, you\'ll get to be a plushy again soon.'
-			],
-			'subtry':"Sorry, subby, if you want to be plushified you'll have to ask a Switch or Dom to do it for you."
-		},
-		'hypnotize':{
-			'start':[
-				'has been caught by a pretty pattern of lights!',
-				'gets enraptured by a powerful spiral. Pretty..',
-				'is a plaything, and playthings don\'t have smarts. Let\'s take those away.',
-				'is going to obey and sink.'
-			],
-			'talk':[
-				'tried to disobey. Shh... don\'t think. Just sink.',
-				'tried to speak, but only a compliant moan came out.',
-				'is trying to be smart, but something\'s just not working right now.',
-				'lets out a compliant moan as all % brains go down the drain.',
-				'needs some help wiping drool from % chin.'
-			],
-			'end':[
-				'has been released from control! Be good and remember who owns you.',
-				'has been released from hypnosis! It\'s okay, we all know you\'ll obey anyway.',
-				'has been brought back to lucidity! Good thing #is still such a dumb toy.'
-			],
-			'subtry':"Sorry, subby, if you want to be hypnotized you'll have to ask a Switch or Dom to do it for you."
-		}
-	}
-	flav = flavs[f]
+
+	flav = muzzle_flavor_text[f]
 	if t == "subtry":
 		s = flav[t]
 	else:
@@ -321,12 +199,15 @@ def flavor(t,user,f):
 	s=s.replace('@',user.mention)
 	return replacePronouns(s,user)
 
-async def release(user,channel,muzzler):
+async def release(user,channel, silent=False):
 	global muzzlers
 	print(muzzlers)
-	await speak(user.mention + ' ' + flavor('end',user,muzzled[user.mention]['flavor']), channel)
-	del muzzled[user.mention]
+	muzzler = muzzled_by[user.mention]
+	if not silent:
+		await speak(flavor('end',user,muzzled[user.mention]['flavor']), channel)	
 	muzzlers[muzzler].remove(user.mention)
+	del muzzled[user.mention]
+	del muzzled_by[user.mention]
 	if len(muzzlers[muzzler]) == 0:	
 		del muzzlers[muzzler]
 	print(muzzlers)
@@ -334,13 +215,12 @@ async def release(user,channel,muzzler):
 async def muzzlemain(message):
 	global muzzled
 	global muzzlers
-
-	if message.author == client.user or message.author.bot:
-		return
+	global muzzled_by
 
 	if str(message.author) == 'DISBOARD#2760':
 		if len(message.embeds) == 1:
-			print(message.embeds)
+			print(message.embeds[0].title)
+			print(message.embeds[0].description)
 			if 'Bump done!' in message.embeds[0].title:
 				print("Text found!")
 				replied_to = message.reference
@@ -352,6 +232,9 @@ async def muzzlemain(message):
 				print(msg)
 				print(user)
 				#await sendBumpMessage(user,message.channel)
+		return
+
+	if message.author == client.user or message.author.bot:
 		return
 
 	allowed_channels = ['blush-chat','blush-chat-2','blush-chat-3','extreme-blush-chat','extreme-blush-chat-2','bot', 'rp-chat']	
@@ -394,7 +277,7 @@ async def muzzlemain(message):
 				#They spoke! How dare they!
 				cnt = message.content
 				await message.delete()				
-				await speak(author.mention + ' ' +flavor('talk',author,flav), channel)				
+				await speak(flavor('talk',author,flav), channel)				
 	elif message.content.startswith("!release") or message.content.startswith("!unmuzzle"):
 		command = message.content.split(' ')[0]
 		arg = message.content[len(command)+1:]
@@ -409,10 +292,10 @@ async def muzzlemain(message):
 		elif hasRole(author,'Dom') or hasRole(author,'Switch'):
 			if len(arg) == 0:				
 				# Check if anyone is muzzled under this user's name.
-				if author.mention in muzzlers:
-					muzzled_persons = muzzlers[author.mention]
+				if author.mention in muzzlers:					
+					muzzled_persons = muzzlers[author.mention]					
 					last_muzzled = muzzlers[author.mention][len(muzzled_persons)-1]
-					await release(getUser(last_muzzled,channel.members),channel, author.mention)
+					await release(getUser(last_muzzled,channel.members),channel)
 				else:
 					#Nope. We don't know who they mean.
 					await speak('You need to choose a user to unmuzzle!', channel)
@@ -420,13 +303,14 @@ async def muzzlemain(message):
 				await speak("Releasing all muzzled users.",channel)
 				muzzled = {}
 				muzzlers = {}
+				muzzled_by = {}
 			else:
 				first = args[0]
 				members = channel.members				
 				user = getUser(first,members)
 				if user != False:
 					if user.mention in muzzled:
-						await release(user,channel,author.mention)
+						await release(user,channel)
 					else:
 						await speak("That person isn't restricted!", channel)
 				else:
@@ -436,16 +320,9 @@ async def muzzlemain(message):
 				await deny_emoji(message)
 			else:
 				await speak('You need a Switch or Dom role to use this command.', channel)
-	else:
-		flav_commands = ['muzzle','gag','pantygag','pacify','plushify','hypnotize']
-		flavor_defaults = {
-			'muzzle':["woof","bark","awoo","whine","arf"],
-			'gag':['mmph'],
-			'pantygag':['mmph'],
-			'pacify':['wah'],
-			'plushify':['squeak'],
-			'hypnotize':['yes', 'no', 'miss', 'mistress', 'sir', 'master', 'owner', 'i obey', 'I understand', '😵', '🌀']
-		}
+	else:		
+		flav_commands = muzzle_flavor_text.keys()
+
 		for command in flav_commands:			
 			if message.content.startswith('!'+command):
 				if not str(channel) in allowed_channels:
@@ -475,16 +352,21 @@ async def muzzlemain(message):
 										allowed = args[1:]					
 										if len(allowed) == 0:
 											#Use defaults
-											allowed = flavor_defaults[command]									
-											allowed_list = flavor_defaults[command]
+											allowed = muzzle_flavor_text[command]['defaults']								
+											allowed_list = muzzle_flavor_text[command]['defaults']
 											#Muzzle the user!
+											if user.mention in muzzled:
+												#Hotswap, silently unmuzzle first.
+												await release(user,channel,True)
+											
 											muzzled[user.mention] = {
 												'allowed':allowed,
 												'flavor':command
 											}
 											#Remember who muzzled them.
-											if author.mention in muzzlers:
-												muzzlers[author.mention].append(user.mention)
+											muzzled_by[user.mention] = author.mention															
+											if author.mention in muzzlers:												
+												muzzlers[author.mention].append(user.mention)													
 											else:
 												muzzlers[author.mention] = [user.mention]
 										else:
@@ -508,7 +390,7 @@ async def muzzlemain(message):
 													'flavor':command
 												}
 
-										await speak(user.mention + ' ' + flavor('start',user,command), channel)
+										await speak(flavor('start',user,command), channel)
 										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
 								else:
 									await speak("Could not find user: "+first, channel)
