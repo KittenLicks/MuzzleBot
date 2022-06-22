@@ -37,6 +37,7 @@ swears = [
 
 channel = ''
 emojis = '😀😃🙂🙃😊😇☺😋😛😜🤭🤐😐😑😶😏😳😨😭😖😣😤😡😈❤😠🤤💖❤🧡💛💚💙💜🤎🖤🤍♥💘💝💗'
+safewords = '🔴🟡🟢'
 stop_sign = '🛑'
 
 escape_regex = r'[\’\'\.\!\?\,\(\)\-\s\>\<\~\\\^\:3]'
@@ -266,13 +267,15 @@ async def muzzlemain(message):
 		await author.send("Here is a list of all the words you can say when restricted to simple language.\n>>> " + '\n'.join(simple_text))
 		await speak('List sent to '+author.mention+'.',channel)
 	elif author.mention in muzzled:
-		if  "🔴" in message.content or (not str(channel) in allowed_channels):
+		#If message contains a safeword, or if it's in a disallowed channel, we don't touch it.
+		if safewords[0] in message.content or safewords[1] in message.content or safewords[2] in message.content or (not str(channel) in allowed_channels):
 			return
 		else:			
 			#Ensure the message uses only allowed words and punctuation			
 			msg = message.content.lower()
 			msg = re.sub(escape_regex,'',msg)
-			allowed_words = muzzled[author.mention]['allowed']
+
+			allowed_words = muzzled[author.mention]['allowed']			
 			allowed_words.sort(key = len)
 			allowed_words.reverse()
 			flav = muzzled[author.mention]['flavor']
@@ -396,7 +399,7 @@ async def muzzlemain(message):
 												}
 										#Remember who muzzled them.
 										remember_muzzle(user,author)
-
+										
 										await speak(flavor('start',user,command), channel)
 										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
 								else:
