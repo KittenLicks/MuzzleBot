@@ -231,19 +231,15 @@ async def muzzlemain(message):
 
 	if str(message.author) == 'DISBOARD#2760':
 		if len(message.embeds) == 1:
-			print(message.embeds[0].title)
-			print(message.embeds[0].description)
-			if 'Bump done!' in message.embeds[0].title:
-				print("Text found!")
+			if 'Bump done!' in message.embeds[0].description:
+				print("Bump done!")
 				replied_to = message.reference
 				message_id = replied_to.message_id
 				msg = await message.channel.fetch_message(message_id)
 				user = msg.author.mention
 
 				user = getUser(user, message.channel.members)
-				print(msg)
-				print(user)
-				#await sendBumpMessage(user,message.channel)
+				await sendBumpMessage(user,message.channel)
 		return
 
 	if message.author == client.user or message.author.bot:
