@@ -6,7 +6,7 @@ import json
 
 TOKEN = os.environ['BOT_TOKEN']
 
-intents = disnake.Intents.default()
+intents = disnake.Intents.all()
 intents.members = True
 client = disnake.Client(intents=intents)
 
@@ -338,7 +338,7 @@ async def on_message(message):
 				print(user)
 				user = getUser(user, message.channel.members)
 				await sendBumpMessage(user,message.channel)
-	else:
+	else:		
 		await muzzlemain(message)
 
 def pronoun(user,t):	
