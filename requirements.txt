@@ -1,1 +1,1 @@
-disnake
+disnake==2.5.1
