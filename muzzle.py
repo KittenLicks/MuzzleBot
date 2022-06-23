@@ -1,4 +1,4 @@
-import discord
+import disnake
 import os
 import random
 import re
@@ -6,16 +6,16 @@ import json
 
 TOKEN = os.environ['BOT_TOKEN']
 
-intents = discord.Intents.default()
+intents = disnake.Intents.default()
 intents.members = True
-client = discord.Client(intents=intents)
+client = disnake.Client(intents=intents)
 
 muzzled = {}
 muzzlers = {}
 muzzled_by = {}
 
 muzzle_flavor_text = json.load(open('flavor.json'))
-kink_list = json.load(open('bumps.json'))
+kink_list = json.load(open('bumps.json', encoding='utf-8'))
 
 swears = [
 	r"\ba+ss+(?:hole)?\b",
@@ -69,7 +69,6 @@ def replacePronouns(s,user):
 
 async def sendBumpMessage(user, channel):
 
-	
 	roles = []
 	for role in user.roles:
 		if str(role) in kink_list:
@@ -98,7 +97,7 @@ async def sendBumpMessage(user, channel):
 	if len(split) > 1:
 		msg = split[0]
 		eurl = split[1]
-		e = discord.Embed()
+		e = disnake.Embed()
 		e.set_image(url=eurl)
 		s = replacePronouns(s,user)
 		await channel.send(msg,embed=e)
@@ -157,19 +156,6 @@ async def muzzlemain(message):
 	global muzzled
 	global muzzlers
 	global muzzled_by
-
-	if str(message.author) == 'DISBOARD#2760':
-		if len(message.embeds) == 1:
-			if 'Bump done!' in message.embeds[0].description:
-				print("Bump done!")
-				replied_to = message.reference
-				message_id = replied_to.message_id
-				msg = await message.channel.fetch_message(message_id)
-				user = msg.author.mention
-
-				user = getUser(user, message.channel.members)
-				await sendBumpMessage(user,message.channel)
-		return
 
 	if message.author == client.user or message.author.bot:
 		return
@@ -340,8 +326,20 @@ async def on_message_edit(before,after):
 		await muzzlemain(after)
 
 @client.event
-async def on_message(message):	
-	await muzzlemain(message)
+async def on_message(message):
+	if str(message.author) == 'DISBOARD#2760':
+		if len(message.embeds) == 1:
+			if 'Bump done!' in message.embeds[0].description:
+				print(message.type)
+				print("Bump done!")
+				print(message)
+				print(message.interaction)		
+				user = message.interaction.author.mention
+				print(user)
+				user = getUser(user, message.channel.members)
+				await sendBumpMessage(user,message.channel)
+	else:
+		await muzzlemain(message)
 
 def pronoun(user,t):	
 	if hasRole(user,'He/Him'):
