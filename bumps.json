@@ -30,11 +30,15 @@
 		"What was that, @? All I hear is barking.",
 		"Here, @! You can follow me around on a leash. Good pet."
 	],
-	"Ageplay":[
+	"Little":[
 		"Hush, @, the adults are talking.",
-		"It's bedtime for you, @. Come along now, I'll tuck you in."			
+		"It's bedtime for you, @. Come along now, I'll tuck you in.",
+		"There's a lost little one in here. Can someone pick up @ and take !! back to the play room?"
 	],
-	"Obectification":[],
+	"Objectification":[
+		"That command is for people, @. Toys like you are just for entertainment.",
+		"@ is available, if anyone needs a place to sit."
+	],
 	"Forced Bi":[],
 	"BDSM":[],
 	"Sissification":[
@@ -49,7 +53,11 @@
 		"And for my next trick I will turn @ into an obedient toy!",
 		"Can you tell me the time, @? I'd check my pocket watch but you'd probably drop at the sight of it."
 	],
-	"Dronification":[],
+	"Dronification":[
+		"Good drone, @. Run reward subroutine for one loop and present your head for physical affection.",
+		"BlushDrone designation '@' is online and ready for service.",
+		"Free will detected. @, please report to your nearest dronification facility for reconditioning."
+	],
 	"Plushification":[
 		"Oh wow, @ is useful for more than just cuddling?",
 		"@ is such a good little plush!",
@@ -59,15 +67,12 @@
 		"Over my lap, @, it's time for your maintenance spanking.",
 		"Get over my lap right this instant, @! You're about to have a very sore bottom.",
 		"Bring me my paddle, @, I think it's time we turned that butt a nice red, don't you?"
-	],	
-	"Discipline":[],
-	"Deepthroating":[],
-	"Edge Play":[],
-	"Voyeurism":[],
-	"Exhibitionism":[],
-	"DDLG":[],
-	"Footplay":[],
-	"CNC":[],
-	"CBT":[],
-	"Kinkshaming":[]
+	],
+	"Dumbification":[
+		"@ doesn't know much, but at least # can bump a server.",
+		"Tell me, @, did you know what that would do or were you just copying people smarter than you?"
+	],
+	"Weapons Play":[
+		"It turns out @ is actually quite eager to do what # should when a knife is held to % throat."
+	]
 }
