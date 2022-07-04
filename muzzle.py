@@ -364,7 +364,7 @@ def pronoun(user):
 		'masc':{'he':'He',  "hes":"He's",    'he is':'He is',    'his':'His',   'him':'Him'},
 		'fem':{'he':'She',  "hes":"She's",   'he is':'She is',   'his':'Her',   'him':'Her'},
 		'amb':{'he':'They', "hes":"They're", 'he is':'They are', 'his':'Their', 'him':'Them'},
-		'obj':{'he':'It',   "hes":"Its",     'he is':'It is',    'his':'Its',   'him':'It'}
+		'obj':{'he':'It',   "hes":"It's",     'he is':'It is',    'his':'Its',   'him':'It'}
 	}	
 	return terms[option]
 
