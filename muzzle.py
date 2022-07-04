@@ -55,16 +55,26 @@ simple_text.sort(key = len)
 simple_text.reverse()
 
 def replacePronouns(s,user):
-	he = pronoun(user,'he')	
-	heis = pronoun(user,'he is')
-	his = pronoun(user,'his')
-	him = pronoun(user,'him')
+	pronouns = pronoun(user)
+	he = pronouns['he']
+	heis = pronouns['he is']
+	hes = pronouns['hes']
+	his = pronouns['his']
+	him = pronouns['him']
 	
-	s = s.replace('#is',heis)	
-	s = s.replace('%',his)
-	s = s.replace('!!',him)
-	s = s.replace('#',he)
+	syntax = {'#is':heis, '#s':hes, '%':his, '!!':him, '#':he}
+
+	for code in syntax:
+		text = syntax[code]
+		s = s.replace('+'+code,text)
+		s = s.replace(code,text.lower())
 	
+	#Remove s's conditionally because english grammar sucks.	
+	if he == 'They':
+		s = s.replace('/s/','')
+	else:
+		s = s.replace('/s/','s')
+
 	return s
 
 async def sendBumpMessage(user, channel):
@@ -166,7 +176,7 @@ async def muzzlemain(message):
 	author = message.author
 
 	#Check for swearing
-	if hasRole(author,'Soap Bar'):		
+	if hasRole(author,'Soap Bar'):
 		msg = message.content.lower()		
 		if check_swear(msg):
 			#They SWORE. O: Naughty.
@@ -329,28 +339,34 @@ async def on_message_edit(before,after):
 async def on_message(message):
 	if str(message.author) == 'DISBOARD#2760':
 		if len(message.embeds) == 1:
-			if 'Bump done!' in message.embeds[0].description:
-				print(message.type)
-				print("Bump done!")
-				print(message)
-				print(message.interaction)		
+			if 'Bump done!' in message.embeds[0].description:	
 				user = message.interaction.author.mention
-				print(user)
 				user = getUser(user, message.channel.members)
 				await sendBumpMessage(user,message.channel)
 	else:		
 		await muzzlemain(message)
 
-def pronoun(user,t):	
-	if hasRole(user,'He/Him'):
-		p =	{'he':'he','he is':'he is','his':'his','him':'him'}
-		return p[t]
-	elif hasRole(user,'She/Her'):
-		p = {'he':'she','he is':'she is','his':'her','him':'her'}
-		return p[t]
+def pronoun(user):
+	valid_pronouns = {
+		'masc':hasRole(user,'He/Him'),
+		'fem':hasRole(user,'She/Her'),
+		'amb':hasRole(user,'They/Them'),
+		'obj':hasRole(user,'It/Its')
+	}
+	#Choose masc/fem terms based on available roles
+	options = list(filter(lambda typ: valid_pronouns[typ], valid_pronouns.keys()))
+	
+	if len(options) == 0:
+		option = 'amb'
 	else:
-		p = {'he':'they','he is':'they are','his':'their','him':'them'}
-		return p[t]
+		option = random.choice(options)
+	terms = {
+		'masc':{'he':'He',  "hes":"He's",    'he is':'He is',    'his':'His',   'him':'Him'},
+		'fem':{'he':'She',  "hes":"She's",   'he is':'She is',   'his':'Her',   'him':'Her'},
+		'amb':{'he':'They', "hes":"They're", 'he is':'They are', 'his':'Their', 'him':'Them'},
+		'obj':{'he':'It',   "hes":"Its",     'he is':'It is',    'his':'Its',   'him':'It'}
+	}	
+	return terms[option]
 
 def getUser(user,members):
 	user = user.replace('<@!','<@')
