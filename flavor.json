@@ -24,7 +24,7 @@
 		"talk":[
 			"@ had something to say, but nobody could hear it through the muzzle.",
 			"@ tried to say a disallowed word. Bad pet!",
-			"@ tried to speak through % muzzle. It thinks it's people, cute!"		
+			"@ tried to speak through % muzzle. +# think/s/ #s people, cute!"		
 		],
 		"end":[
 			"@ has had % muzzle removed. I hope you learned a lesson.",
@@ -71,8 +71,8 @@
 			"@ wanted to say something, but got distracted by the sweet taste of % panties!",
 			"@ tried to talk, but % smell is making !! lightheaded!",
 			"@ just moaned through % gag again. How do those panties taste?",
-			"It's hard to tell if #is drooling over the taste of % own panties, or if @'s just that excited to serve as a panty washing machine~",
-			"If @ doesn't stop talking, #is going to end up getting another pair stuffed in % mouth.",
+			"It's hard to tell if #s drooling over the taste of % own panties, or if @'s just that excited to serve as a panty washing machine~",
+			"If @ doesn't stop talking, #s going to end up getting another pair stuffed in % mouth.",
 			"@ keeps trying to talk. Maybe one pair of panties just isn't enough for % big mouth.",
 			"Panty washing machines don't talk, @.",
 			"What was that, @? You want another pair in your mouth?! Sure thing, you little cutie.",
@@ -89,7 +89,7 @@
 	"pacify":{
 		"defaults":["wah"],
 		"start":[
-			"Uh oh, @ is getting fussy. Time for their paci~",
+			"Uh oh, @ is getting fussy. Time for % paci~",
 			"@ is now pacified! Act like a baby, get treated like a baby.",
 			"@ is now pacified! Aww... is the baby cranky?",
 			"@ is now pacified! Hush, little baby, don't say a word...",
@@ -116,7 +116,7 @@
 		],
 		"talk":[
 			"@ squeaks! Did someone squeeze !!?",
-			"@ squeaks for attention! I think # needs a hug.",
+			"@ squeaks for attention! I think # need/s/ a hug.",
 			"@ is just a dumb little plush that needs others to tell !! what to say."
 		],
 		"end":[
