@@ -14,6 +14,7 @@ muzzled = {}
 muzzlers = {}
 muzzled_by = {}
 
+
 muzzle_flavor_text = json.load(open('flavor.json'))
 kink_list = json.load(open('bumps.json', encoding='utf-8'))
 
@@ -55,7 +56,10 @@ simple_text.sort(key = len)
 simple_text.reverse()
 
 def replacePronouns(s,user):
-	pronouns = pronoun(user)
+	print(muzzled[user.mention]['flags'])
+
+	my_flags = muzzled[user.mention]['flags']
+	pronouns = pronoun(user, my_flags['objectify'])
 	he = pronouns['he']
 	heis = pronouns['he is']
 	hes = pronouns['hes']
@@ -137,7 +141,6 @@ def remember_muzzle(user, author):
 	else:
 		muzzlers[author.mention] = [user.mention]
 
-
 def flavor(t,user,f):
 	print('flavor',t,user,f)
 
@@ -151,16 +154,15 @@ def flavor(t,user,f):
 
 async def release(user,channel, silent=False):
 	global muzzlers
-	print(muzzlers)
+
 	muzzler = muzzled_by[user.mention]
 	if not silent:
 		await speak(flavor('end',user,muzzled[user.mention]['flavor']), channel)	
-	muzzlers[muzzler].remove(user.mention)
-	del muzzled[user.mention]
+	muzzlers[muzzler].remove(user.mention)	
+	del muzzled[user.mention]	
 	del muzzled_by[user.mention]
 	if len(muzzlers[muzzler]) == 0:	
 		del muzzlers[muzzler]
-	print(muzzlers)
 
 async def muzzlemain(message):
 	global muzzled
@@ -256,6 +258,7 @@ async def muzzlemain(message):
 			else:
 				await speak('You need a Switch or Dom role to use this command.', channel)
 	else:		
+		#!muzzle
 		flav_commands = muzzle_flavor_text.keys()
 
 		for command in flav_commands:			
@@ -266,9 +269,15 @@ async def muzzlemain(message):
 					if hasRole(author, 'Privileges Revoked'):
 						await speak('Sorry, '+message.author.mention + '. You\'ve had muzzling privileges revoked.', channel)
 					else:
+						#Objectification flag
+						my_flag = {'objectify':False}
+						flag = 0
+						if message.content.startswith('!'+command+'!'):
+							my_flag['objectify'] = True
+							flag = 1
 						#Fix any accidental doublespacing in the command.
 						message.content = re.sub(r'\s+',' ',message.content)
-						arg = message.content[len(command)+2:]					
+						arg = message.content[len(command)+2+flag:]				
 						
 						args = arg.split(' ')
 						if hasRole(author,'Sub'):
@@ -296,14 +305,16 @@ async def muzzlemain(message):
 											allowed_list = muzzle_flavor_text[command]['defaults']
 											muzzled[user.mention] = {
 												'allowed':allowed,
-												'flavor':command
+												'flavor':command,
+												'flags':my_flag
 											}											
 										else:
 											#Check for the simple list
 											if '**simple**' in allowed:
 												muzzled[user.mention] = {
 													'allowed':simple_text,
-													'flavor':command
+													'flavor':command,
+													'flags':my_flag
 												}
 												allowed_list = ["Please see !simpletext for a complete list."]
 											else:
@@ -316,13 +327,14 @@ async def muzzlemain(message):
 												#Muzzle the user!
 												muzzled[user.mention] = {
 													'allowed':allowed,
-													'flavor':command
+													'flavor':command,
+													'flags':my_flag
 												}
 										#Remember who muzzled them.
-										remember_muzzle(user,author)
-										
+										remember_muzzle(user,author)										
+
 										await speak(flavor('start',user,command), channel)
-										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
+										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)										
 								else:
 									await speak("Could not find user: "+first, channel)
 						else:
@@ -346,17 +358,19 @@ async def on_message(message):
 	else:		
 		await muzzlemain(message)
 
-def pronoun(user):
+def pronoun(user, force_obj=False):
 	valid_pronouns = {
 		'masc':hasRole(user,'He/Him'),
 		'fem':hasRole(user,'She/Her'),
 		'amb':hasRole(user,'They/Them'),
 		'obj':hasRole(user,'It/Its')
-	}
+	}	
 	#Choose masc/fem terms based on available roles
 	options = list(filter(lambda typ: valid_pronouns[typ], valid_pronouns.keys()))
 	
-	if len(options) == 0:
+	if force_obj:
+		option = 'obj'
+	elif len(options) == 0:
 		option = 'amb'
 	else:
 		option = random.choice(options)
