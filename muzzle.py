@@ -24,7 +24,7 @@ swears = [
 	"b+i+t+c+h+",
 	"da+m+n+",
 	"f+u+c+k+",
-	"^hell[^o]|[^s]h+el+l[^o]",
+	r"^hell([^o]|\b)|[^s]h+el+l([^o]|\b)",
 	"s+h+i+t+",
 	"w+h+o+r+e",
 	"c+u+n+t+",
