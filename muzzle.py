@@ -21,7 +21,7 @@ swears = [
 	r"\ba+ss+(?:hole)?\b",
 	r"\ba+ss+e+s\b",
 	r"\ba+r+s+e+s?(?:hole)?\b",
-	r"\bb+a+d+a+ss+",
+	r"\bb+a+d+a+ss+",	
 	"b+i+t+c+h+",
 	"da+m+n+",
 	"f+u+c+k+",
@@ -34,7 +34,8 @@ swears = [
 	"gdi+",
 	"lmfa+o+",
 	"fml+",
-	"s+l+u+t+"
+	"s+l+u+t+",
+	r"([^slu]|\b)t+w+a+t+"
 ]
 
 channel = ''
