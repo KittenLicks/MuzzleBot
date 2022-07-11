@@ -320,9 +320,14 @@ async def muzzlemain(message):
 												}
 										#Remember who muzzled them.
 										remember_muzzle(user,author)
-										
+
+										allowed_string = 'Allowed words:\n> ' + ', '.join(allowed_list)
 										await speak(flavor('start',user,command), channel)
-										await speak('Allowed words:\n> ' + ', '.join(allowed_list), channel)
+										await speak(allowed_string, channel)
+										#DM the person that was muzzled to inform them, provided they are a user and not a bot.
+										if not user.bot:
+											s = f"You were {muzzle_flavor_text[command]['verbed']} by {author.mention} in `#{channel}`!"	
+											await user.send(s+"\n"+allowed_string)
 								else:
 									await speak("Could not find user: "+first, channel)
 						else:
