@@ -21,6 +21,7 @@ swears = [
 	r"\ba+ss+(?:hole)?\b",
 	r"\ba+ss+e+s\b",
 	r"\ba+r+s+e+s?(?:hole)?\b",
+	r"\bb+a+d+a+ss+",
 	"b+i+t+c+h+",
 	"da+m+n+",
 	"f+u+c+k+",
