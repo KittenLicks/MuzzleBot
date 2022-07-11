@@ -3,12 +3,13 @@ import os
 import random
 import re
 import json
+from disnake.ext.commands import Bot
 
 TOKEN = os.environ['BOT_TOKEN']
 
 intents = disnake.Intents.all()
 intents.members = True
-client = disnake.Client(intents=intents)
+client = Bot(intents=intents, command_prefix="/")
 
 muzzled = {}
 muzzlers = {}
@@ -139,7 +140,7 @@ def remember_muzzle(user, author):
 
 
 def flavor(t,user,f):
-	print('flavor',t,user,f)
+	print('flavor',t,user,f)	
 
 	flav = muzzle_flavor_text[f]
 	if t == "subtry":
@@ -161,6 +162,14 @@ async def release(user,channel, silent=False):
 	if len(muzzlers[muzzler]) == 0:	
 		del muzzlers[muzzler]
 	print(muzzlers)
+
+def get_allowed_words(mention):
+	if mention in muzzled:
+		muzzled_person = muzzled[mention]
+		s = 'Allowed words:\n> '
+		return s + ', '.join(muzzled_person['allowed'])
+	else:
+		return "You are not restricted!"
 
 async def muzzlemain(message):
 	global muzzled
@@ -328,6 +337,11 @@ async def muzzlemain(message):
 						else:
 							await speak('You need a Switch or Dom role to use this command.', channel)
 
+@client.slash_command(description="List the words you are restricted to. Only you will see the result.")
+async def listwords(inter):
+	cont = get_allowed_words(inter.author.mention)
+	await inter.response.send_message(content=cont,ephemeral=True)
+
 @client.event
 async def on_message_edit(before,after):
 	if str(before.author) == 'DISBOARD#2760':
@@ -347,15 +361,18 @@ async def on_message(message):
 		await muzzlemain(message)
 
 def pronoun(user):
+	print(user)
 	valid_pronouns = {
 		'masc':hasRole(user,'He/Him'),
 		'fem':hasRole(user,'She/Her'),
 		'amb':hasRole(user,'They/Them'),
 		'obj':hasRole(user,'It/Its')
 	}
+
 	#Choose masc/fem terms based on available roles
 	options = list(filter(lambda typ: valid_pronouns[typ], valid_pronouns.keys()))
-	
+	print(options)
+
 	if len(options) == 0:
 		option = 'amb'
 	else:
