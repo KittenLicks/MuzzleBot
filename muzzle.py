@@ -35,7 +35,8 @@ swears = [
 	"lmfa+o+",
 	"fml+",
 	"s+l+u+t+",
-	r"([^slu]|\b)t+w+a+t+"
+	r"([^slu]|\b)t+w+a+t+",
+	r"\bff+s+"
 ]
 
 channel = ''
