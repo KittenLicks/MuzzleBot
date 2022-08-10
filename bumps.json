@@ -19,6 +19,7 @@
 		"It's okay, @, size doesn't matter. Not unless you wanted to have sex with that tiny thing, anyway.",
 		"How do you even masturbate with that little thing, @? If I wrapped my hand around it, it'd get lost."
 	],
+  "KinkShaming":["Wow, @, I didn't think anyone was actually into that.","@ bumped the server. I can't believe they actually get off on this.","Imagine actually getting turned on by this. You sure are weird, @."],
 	"Diapers":[
 		"@ needs some padding between % legs. Can somebody change !!?",
 		"@ needs to be put back in diapers. Act like a baby, get treated like a baby.",
@@ -73,6 +74,7 @@
 		"Tell me, @, did you know what that would do or were you just copying people smarter than you?"
 	],
 	"Weapons Play":[
-		"It turns out @ is actually quite eager to do what # should when a knife is held to % throat."
+		"It turns out @ is actually quite eager to do what # should when a knife is held to % throat.",
+      "Go fetch my blade sharpener, @. It's time we taught you a lesson."
 	]
 }
