@@ -1,37 +1,92 @@
 {
+	"Asphyxiation":[
+		"I wonder if @ can hold % breath until someone else comes along and bumps the server. Should we test it?", 
+		"Hey, @, I’d say to try not to choke on your words next time you bumped the server, but you’d probably like that."
+	],
+	"BDSM":[
+		"What, did you think you'd get a reward for this, @?",
+		"It’s good to see that @ still knows how to follow orders.",
+		"Come to think of it, I think bumps should become a daily task for you, @." 
+	],
 	"Bondage":[
 		"Ah, there you are @. What's wrong, got tied up? 😏",
 		"Good pet, @. I'll tighten your bindings as a reward.",
 		"So eager to please, hm, @? Come this way, I've a rope harness with your name on it."
+	],
+	"Creampies":[
+		"Alright then, @, you’ve got my attention. Now turn around and spread ’em.",
+		"As a reward for bumping the server, @, you can ask someone to fill you with cum.",
+		"With that, @ has earned another round of cum for % pretty holes."
+	],
+	"Cuckolding":[
+		"Really, @? Wouldn’t you prefer to see someone else bump the server instead?",
+		"You know, @, you just don’t bump as well as the others do.",
+		"Hmm, I think @ should sit and watch someone else bump the server for a change.",
+		"Hey, @, I want you to go beg someone else to bump the server next time."
 	],
 	"Degradation":[
 		"I'm surprised you typed that out well enough, @, you dumb little slut.",
 		"Hey everyone, @ likes to be degraded and insulted! How pathetic! :laughing:",
 		"It's okay, @, I'm sure someone will give you a bump soon. Pathetic needy fuckslave."
 	],
+	"Discipline":[
+		"Alright, @, I expect you back here with another bump in exactly two hours, understood?",
+		"Good work, @, but don’t let your training slack off." 
+	],
 	"Chastity/Denial":[
 		"Ah, one more day locked up won't hurt, right @?",
 		"Oops, I think I broke the key to your little cage, @! You might be locked up forever! ...Oh no, here it is~",
 		"Click the lock, turn the key, being locked gets @ weak at the knees~"
 	],
-	"SPH":[
-		"Don't worry, @, penises of all sizes are good. Yours just happens to be good for laughing at.",
-		"It's okay, @, size doesn't matter. Not unless you wanted to have sex with that tiny thing, anyway.",
-		"How do you even masturbate with that little thing, @? If I wrapped my hand around it, it'd get lost."
-	],
-  "KinkShaming":["Wow, @, I didn't think anyone was actually into that.","@ bumped the server. I can't believe they actually get off on this.","Imagine actually getting turned on by this. You sure are weird, @."],
 	"Diapers":[
 		"@ needs some padding between % legs. Can somebody change !!?",
 		"@ needs to be put back in diapers. Act like a baby, get treated like a baby.",
 		"Diaper check, @! I hope your cute little butt is padded."
 	],
-	"Tease & Denial":[],
-	"Petplay":[
-		"Sit. Stay. Roll over. Good pet, @!",
-		"What was that, @? All I hear is barking.",
-		"Here, @! You can follow me around on a leash. Good pet."
+	"Dronification":[
+		"Good drone, @. Run reward subroutine for one loop and present your head for physical affection.",
+		"BlushDrone designation '@' is online and ready for service.",
+		"Free will detected. @, please report to your nearest dronification facility for reconditioning."
+	],
+	"Dumbification":[
+		"@ doesn't know much, but at least # can bump a server.",
+		"Tell me, @, did you know what that would do or were you just copying people smarter than you?"
+	],
+	"Emasculation":[
+		"Oh, sweetheart. Is that really the best you can do, @?",
+		"Wow, @, I’ve had *way* better bumps.",
+		"@ isn't very good at bumping, but that doesn't stop !! from trying!"
+	],
+	"Exhibitionism":[
+		"Hey, everybody, come look! @ bumped the server again!",
+		"@ bumps so often, I’m starting to think they just like being the center of attention.",
+		"Don't look just yet, @, but we've got an audience and they're all looking at you." 
+	],
+	"Footplay":[
+		"Lie down, @, I could use somewhere to rest my feet.",
+		"Hey, @, since you’re bumping the server anyways, I could use a foot massage while you’re at it."
+	],
+	"Frottage/Humping":[
+		"Bad @, no humping the bumpbot!",
+		"Thanks for bumping the server, @. Here's a boot to grind for your troubles." 
+	],
+	"Furry":["Rawr. @ gives such purrfect bumps."],
+	"Hypnosis":[
+		"Back already, @? Seems like the conditioning is working~",
+		"And for my next trick I will turn @ into an obedient toy!",
+		"Can you tell me the time, @? I'd check my pocket watch but you'd probably drop at the sight of it."
+	],
+	"Impact Play":[
+		"Over my lap, @, it's time for your maintenance spanking.",
+		"Get over my lap right this instant, @! You're about to have a very sore bottom.",
+		"Bring me my paddle, @, I think it's time we turned that butt a nice red, don't you?"
+	],	
+	"Kinkshaming":[
+		"Um... @ is really into reading these bump messages, huh? How pathetic.",
+		"@ is bumping *again*, #is actually disgusting for enjoying this so much." 
 	],
 	"Little":[
+		"Aww, thank you, @. I'll make sure you get extra cuddles tonight.",
 		"Hush, @, the adults are talking.",
 		"It's bedtime for you, @. Come along now, I'll tuck you in.",
 		"There's a lost little one in here. Can someone pick up @ and take !! back to the play room?"
@@ -40,41 +95,51 @@
 		"That command is for people, @. Toys like you are just for entertainment.",
 		"@ is available, if anyone needs a place to sit."
 	],
-	"Forced Bi":[],
-	"BDSM":[],
-	"Sissification":[
-		"Wait right here, @, while I find you a nice cock to suck~",
-		"Oh @, put on these panties for me, would you?",
-		"You're going to be a good little slut for me, aren't you, @?"
+	"Omorashi":[
+		"I bet @ can’t hold % bladder until % next bump.",
+		"Have you been drinking enough water lately, @? Good toys stay nice and full."
 	],
-	"Cuckolding":[],
-	"Creampies":[],
-	"Hypnosis":[
-		"Back already, @? Seems like the conditioning is working~",
-		"And for my next trick I will turn @ into an obedient toy!",
-		"Can you tell me the time, @? I'd check my pocket watch but you'd probably drop at the sight of it."
-	],
-	"Dronification":[
-		"Good drone, @. Run reward subroutine for one loop and present your head for physical affection.",
-		"BlushDrone designation '@' is online and ready for service.",
-		"Free will detected. @, please report to your nearest dronification facility for reconditioning."
+	"Petplay":[
+		"Sit. Stay. Roll over. Good pet, @!",
+		"What was that, @? All I hear is barking.",
+		"Here, @! You can follow me around on a leash. Good pet."
+	],	
+	"Power Dynamics":[
+		"That’s right, @, you’re beneath even a bot on this server."
 	],
 	"Plushification":[
 		"Oh wow, @ is useful for more than just cuddling?",
 		"@ is such a good little plush!",
 		"If anyone needs a plush to cuddle tonight, @ is available!"
 	],
-	"Impact Play":[
-		"Over my lap, @, it's time for your maintenance spanking.",
-		"Get over my lap right this instant, @! You're about to have a very sore bottom.",
-		"Bring me my paddle, @, I think it's time we turned that butt a nice red, don't you?"
+	"Public":[
+		"Gosh, @, you really want to bump the server where everyone else can see?",
+		"Are you sure you want this, @? You know the others are watching right now, right?"
 	],
-	"Dumbification":[
-		"@ doesn't know much, but at least # can bump a server.",
-		"Tell me, @, did you know what that would do or were you just copying people smarter than you?"
+	"Scolding":[
+		"Tut tut, @. You’re late.",
+		"Your performance is slacking, @. Do better.",
+		"You were told specifically to bump the server *on time*, @." 
+	],
+	"Sissification":[
+		"Wait right here, @, while I find you a nice cock to suck~",
+		"Oh @, put on these panties for me, would you?",
+		"You're going to be a good little slut for me, aren't you, @?"
+	],
+	"SPH":[
+		"Don't worry, @, penises of all sizes are good. Yours just happens to be good for laughing at.",
+		"It's okay, @, size doesn't matter. Not unless you wanted to have sex with that tiny thing, anyway.",
+		"How do you even masturbate with that little thing, @? If I wrapped my hand around it, it'd get lost."
+	],
+	"Voyeurism":[
+		"If you’re patient, @, you might just see someone else bump the server soon."
+	],
+	"Watersports":[
+		"Hey, @, I could really take a leak. You wouldn’t mind being a urinal for me, would you?",
+		"Handling all these bumps is serious work, @. Open wide, I need a bathroom break." 
 	],
 	"Weapons Play":[
 		"It turns out @ is actually quite eager to do what # should when a knife is held to % throat.",
-      "Go fetch my blade sharpener, @. It's time we taught you a lesson."
+		"Go fetch my blade sharpener, @. It's time we taught you a lesson."
 	]
 }
