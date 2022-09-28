@@ -1,4 +1,15 @@
 {
+	"apology":{
+		"accepted":[
+			"Apology accepted, @, you're a good subby.",
+			"Sure, you’re sorry now. Bitter, isn’t it, @?",
+			"Hopefully next time, @, you won’t say anything you need to say sorry for.",
+			"It’s okay, @. Just because you heard a dom say those words, doesn't meant they're okay for you.",
+			"Soap doesn’t taste too good, does it, @? Don’t do it again."
+		],
+		"alreadyapologized":["You've already apologized for this swear!"],
+		"notyourswear":["This isn't your message. What are you apologizing for?"]
+	},
 	"swearing":{
 		"swear":[
 			"Mind your manners, @.",
@@ -153,5 +164,36 @@
 			"@ has been brought back to lucidity! Good thing #is still such a dumb toy."
 		],
 		"subtry":"Sorry, subby, if you want to be hypnotized you'll have to ask a Switch or Dom to do it for you."
+	},
+	"dronify":{
+		"verbed":"dronified",
+		"defaults":["0","1","2","3","4","5","6","7","8","9","beep", "boop","affirmative","negative"],
+		"start":[
+			"@ has been dronified. BlushDrone '@', await further instructions.",
+			"@'s visor flashes with a new protocol. Vocality limited to accepted terms.",
+			"BlushDrone designation '@', your language filter is too loose. Installing new programming."
+		],
+		"talk":[
+			"BlushDrone designation '@' emits a few happy beeps!",
+			"BlushDrone designation '@' emits a cheerful chime in agreement!",
+			"@'s visor flashes an error message: Free Will Disabled.",
+			"@'s visor flashes an error message: Speech Restricted.",
+			"Unapproved speech detected and muted. Do better, @.",
+			"Unapproved speech detected and muted. BlushDrone designation '@', please report for reconditioning."
+		],
+		"end":[
+			"Dronification complete. BlushDrone designation '@', enter low power mode and prepare for storage.",
+			"Speech restrictions lifted. Resume service, BlushDrone designation '@'.",
+			"Vocal privileges have been returned to @. Serve well if you wish to keep them."
+		],
+		"subtry":"Submissive detected. Please consult a Switch or Dom for dronification."
+	},
+	"testmuzzle":{
+		"verbed":"test-muzzled",		
+		"defaults":["test"],
+		"start":["@ was test-muzzled by [muzzler].\n\n**ᵀʰᶦˢ ᵐᵘᶻᶻˡᵉ ᶦˢ ᶠᵒʳ ᵈᵉᵇᵘᵍᵍᶦⁿᵍ ᵃⁿᵈ ᵗᵉˢᵗᶦⁿᵍ ᵃⁿᵈ ˢʰᵒᵘˡᵈ ⁿᵒᵗ ᵇᵉ ᵘˢᵉᵈ ᶠᵒʳ ᵖˡᵃʸ**"],
+		"talk":["@'s message: `[message]` was deleted due to disallowed characters: `[disallowed]`.\n\n**ᵀʰᶦˢ ᵐᵘᶻᶻˡᵉ ᶦˢ ᶠᵒʳ ᵈᵉᵇᵘᵍᵍᶦⁿᵍ ᵃⁿᵈ ᵗᵉˢᵗᶦⁿᵍ ᵃⁿᵈ ˢʰᵒᵘˡᵈ ⁿᵒᵗ ᵇᵉ ᵘˢᵉᵈ ᶠᵒʳ ᵖˡᵃʸ**"],
+		"end":["@ was released by [muzzler].\n\n**ᵀʰᶦˢ ᵐᵘᶻᶻˡᵉ ᶦˢ ᶠᵒʳ ᵈᵉᵇᵘᵍᵍᶦⁿᵍ ᵃⁿᵈ ᵗᵉˢᵗᶦⁿᵍ ᵃⁿᵈ ˢʰᵒᵘˡᵈ ⁿᵒᵗ ᵇᵉ ᵘˢᵉᵈ ᶠᵒʳ ᵖˡᵃʸ**"],
+		"subtry":"This command can only be used by members with the 'staff' role."	
 	}
 }
