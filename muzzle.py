@@ -127,7 +127,7 @@ async def muzzle(inter,
 		target:disnake.User = commands.Param(description="Who are you targetting with this muzzle?"), 
 		words:str = commands.Param(default="",description="List of words the target is allowed to say. Separate these with /'s.")
 	):		
-		words = words.lower().split('/')
+		words = words.split('/')
 		await start_muzzle(muzzle_type,inter.channel,target, words,inter.author, inter=inter)
 
 swears = [	
@@ -306,7 +306,7 @@ async def start_release(author,target=None,message=None,inter=None,override=Fals
 	channel = message.channel if message != None else inter.channel
 
 	if hasRole(author, 'Privileges Revoked'):
-		await speak('Sorry, '+message.author.mention + '. You\'ve had muzzling privileges revoked.', message.channel, inter)
+		await speak('Sorry, '+author.mention + '. You\'ve had muzzling privileges revoked.', channel, inter)
 	elif hasRole(author,'Sub') and not override:
 		if not str(channel) in allowed_channels:
 			await deny_emoji(message)
@@ -331,7 +331,7 @@ async def start_release(author,target=None,message=None,inter=None,override=Fals
 				muzzled_persons = muzzlers[author.mention]				
 				last_muzzled = muzzlers[author.mention][len(muzzled_persons)-1]
 				# If this is a testrelease, make sure it's being used on a test muzzle.					
-				if override and not (muzzled[last_muzzled]['flavor'] == 'testmuzzle'):
+				if override and not (muzzled[last_muzzled]['flavor'] == 'testmuzzle') and not (hasRole(author,'Dom') or hasRole(author,'Switch')):
 					await speak("This command can only be used to release a user in a test-muzzle.", channel, inter)
 				else:
 					await do_release(getUser(last_muzzled,channel.members),channel,inter=inter)
@@ -524,7 +524,7 @@ async def muzzlemain(message):
 				args = arg.split(' ')
 				first = args[0]				
 				user = getUser(first,channel.members)				
-				words = ''.join(args[1:]).lower().split('/')
+				words = ' '.join(args[1:]).split('/')
 				await start_muzzle(command, channel, user, words, author, message) 
 
 @bot.event
