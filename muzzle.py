@@ -212,13 +212,14 @@ async def sendBumpMessage(user, channel):
 
 	if len(s) == 0 or hasRole(user,'Dom'):
 		s = "Thank you for bumping the server, @!"
-
+	print('Bump message for',user.mention)
+		
 	#Special thing for Liz
 	if (user.mention == "<@547728057264242688>" or user.mention == "<@!547728057264242688>"):
 		s = "Hey everyone, @ li- oh, gosh, it's you, I'm so sorry, have a nice day, Miss. 😱"		
 
 	#Special thing for King
-	if (user.mention == "<@504712293750145024>"):
+	if (user.mention == "<@504712293750145024>" or user.mention == "<@!547728057264242688>"):
 		s = "Thank you for taking the time out of your busy day to bump us, Mister @!"		
 
 	s = s.replace('@',user.mention)
