@@ -131,6 +131,7 @@ async def muzzle(inter,
 		await start_muzzle(muzzle_type,inter.channel,target, words,inter.author, inter=inter)
 
 swears = [	
+	r"b+a+s+t+a+r+d+",
 	r"\ba+ss+(?:hole)?\b",
 	r"\ba+ss+e+s\b",
 	r"\ba+r+s+e+s?(?:hole)?\b",
