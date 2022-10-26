@@ -76,11 +76,19 @@ async def Introduction(inter):
 
 	history = channel.history(limit=500)
 	last_message = -1
+	extra = False
+	found = False
 
-	async for message in history:		
-		if message.author.id == user.id:
+	async for message in history:
+		if found:
+			if message.author.id == user.id:
+				last_message = message
+				extra = True
+			else:
+				break
+		elif message.author.id == user.id:
 			last_message = message
-			break
+			found = True
 
 	e = disnake.Embed()	
 	if last_message == -1:
@@ -88,7 +96,9 @@ async def Introduction(inter):
 		e.description=f"No introduction found for {user.mention}."
 	else:
 		con=""
-		e.description = user.mention+"\n"+last_message.content		
+		e.description = user.mention+"\n"+last_message.content
+		if extra:			
+			e.description += f"\r\r*This introduction is composed of multiple messages.* [View the first message]({last_message.jump_url})."
 		if hasRole(user,'Sub'):
 			e.color=role_colors['Sub']
 		elif hasRole(user,'Switch'):
