@@ -230,7 +230,7 @@ async def sendBumpMessage(user, channel):
 		s = "Hey everyone, @ li- oh, gosh, it's you, I'm so sorry, have a nice day, Miss. 😱"		
 
 	#Special thing for King
-	if (user.mention == "<@504712293750145024>" or user.mention == "<@!547728057264242688>"):
+	if (user.mention == "<@504712293750145024>" or user.mention == "<@!504712293750145024>"):
 		s = "Thank you for taking the time out of your busy day to bump us, Mister @!"		
 
 	s = s.replace('@',user.mention)
