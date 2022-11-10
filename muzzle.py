@@ -355,7 +355,7 @@ async def start_release(author,target=None,message=None,inter=None,override=Fals
 			user = getUser(target,members)
 			if user != False:
 				if user.mention in muzzled:
-					if override and not (muzzled[user.mention]['flavor'] == 'testmuzzle'):
+					if override and not (muzzled[user.mention]['flavor'] == 'testmuzzle') and not (hasRole(author,'Dom') or hasRole(author,'Switch')):
 						await speak("This command can only be used to release a user in a test-muzzle.", channel,inter)
 					else:
 						await do_release(user,channel,inter=inter)
