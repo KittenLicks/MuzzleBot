@@ -452,7 +452,7 @@ async def start_muzzle(command, channel, target, words, muzzler, message=None,in
 			else:
 				await speak('You need a Switch or Dom role to use this command.', channel)
 
-allowed_channels = ['blush-chat','blush-chat-2','blush-chat-3','extreme-blush-chat','extreme-blush-chat-2','bot', 'rp-chat']	
+allowed_channels = ['blush-chat','blush-chat-2','blush-chat-3','extreme-blush-chat','extreme-blush-chat-2','extreme-blush-chat-3','bot', 'rp-chat']	
 
 async def muzzlemain(message):
 	global muzzled
